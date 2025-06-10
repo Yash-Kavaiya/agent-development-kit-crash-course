@@ -1,141 +1,450 @@
-# Tool Agent Example
+# 🛠️ Tool Agent Example
 
-## What is a Tool Agent?
+[![ADK](https://img.shields.io/badge/ADK-Tool%20Agent-orange.svg)](https://google.github.io/adk-docs/)
+[![Difficulty](https://img.shields.io/badge/Difficulty-Intermediate-yellow.svg)](.)
+[![Python](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![Tools](https://img.shields.io/badge/Tools-Google%20Search-red.svg)](.)
 
-A Tool Agent extends the basic ADK agent by incorporating tools that allow the agent to perform actions beyond just generating text responses. Tools enable agents to interact with external systems, retrieve information, and perform specific functions to accomplish tasks more effectively.
+> 🎯 **Supercharge Your Agent with External Capabilities** - Learn to integrate tools that extend your agent beyond text generation
 
-In this example, we demonstrate how to build an agent that can use built-in tools (like Google Search) and custom function tools to enhance its capabilities.
+## 🧰 What is a Tool Agent?
 
-## Key Components
+A **Tool Agent** is an enhanced ADK agent that goes beyond simple text responses by incorporating **tools** that enable interaction with external systems, data retrieval, and specific function execution.
 
-### 1. Built-in Tools
-ADK provides several built-in tools that you can use with your agents:
+### 🔋 Core Enhancement
 
-- **Google Search**: Allows your agent to search the web for information
-- **Code Execution**: Enables your agent to run code snippets
-- **Vertex AI Search**: Lets your agent search through your own data
+```mermaid
+graph LR
+    subgraph "Basic Agent"
+        A1[User Input] --> B1[LLM Processing]
+        B1 --> C1[Text Response]
+    end
+    
+    subgraph "Tool Agent"
+        A2[User Input] --> B2[LLM Processing]
+        B2 --> C2{Needs External Action?}
+        C2 -->|Yes| D2[Select Tool]
+        C2 -->|No| E2[Direct Response]
+        D2 --> F2[Execute Tool]
+        F2 --> G2[Process Results]
+        G2 --> E2
+        E2 --> H2[Enhanced Response]
+    end
+    
+    style C1 fill:#ffcdd2
+    style H2 fill:#c8e6c9
+```
 
-**Important Note**: Currently, for each root agent or single agent, only one built-in tool is supported. See the [ADK documentation](https://google.github.io/adk-docs/tools/built-in-tools/#use-built-in-tools-with-other-tools) for more details.
+### 📊 Capability Comparison
 
-### 2. Custom Function Tools
-You can create your own tools by defining Python functions. These custom tools extend your agent's capabilities to perform specific tasks.
+| Feature | Basic Agent | Tool Agent | Benefit |
+|---------|-------------|------------|---------|
+| 🧠 **Text Generation** | ✅ | ✅ | Foundation capability |
+| 🔍 **Web Search** | ❌ | ✅ | Real-time information |
+| 💻 **Code Execution** | ❌ | ✅ | Dynamic computations |
+| 🗄️ **Data Retrieval** | ❌ | ✅ | External data access |
+| 🔧 **Custom Functions** | ❌ | ✅ | Specialized tasks |
+| 📈 **API Integration** | ❌ | ✅ | System connectivity |
 
-#### Best Practices for Custom Function Tools:
+## 🔧 Key Components
 
-- **Parameters**: Define your function parameters using standard JSON-serializable types (string, integer, list, dictionary)
-- **No Default Values**: Default values are not currently supported in ADK
-- **Return Type**: The preferred return type is a dictionary
-  - If you don't return a dictionary, ADK will wrap it into a dictionary `{"result": ...}`
-  - Best practice format: `{"status": "success", "error_message": None, "result": "..."}`
-- **Docstrings**: The function's docstring serves as the tool's description and is sent to the LLM
-  - Focus on clarity so the LLM understands how to use the tool effectively
+### 1️⃣ Built-in Tools
 
-## Limitations
+ADK provides powerful **pre-built tools** ready for immediate use:
 
-When working with built-in tools in ADK, there are several important limitations to be aware of:
+```mermaid
+mindmap
+  root)Built-in Tools(
+    Web Access
+      Google Search
+      Real-time data
+      Current information
+    Computation
+      Code Execution
+      Python scripts
+      Mathematical operations
+    Data Search
+      Vertex AI Search
+      Custom datasets
+      Enterprise data
+```
 
-### Single Built-in Tool Restriction
+#### 🌟 Available Built-in Tools
 
-**Currently, for each root agent or single agent, only one built-in tool is supported.**
+| Tool | Purpose | Use Cases | Status |
+|------|---------|-----------|--------|
+| 🔍 **Google Search** | Web information retrieval | News, facts, research | ✅ Active |
+| 💻 **Code Execution** | Python code running | Calculations, data processing | ✅ Active |
+| 🗄️ **Vertex AI Search** | Custom data search | Enterprise search, documents | ✅ Active |
 
-For example, this approach using two built-in tools within a single agent is **not** currently supported:
+### 2️⃣ Custom Function Tools
+
+Create **specialized tools** tailored to your specific needs:
+
+```mermaid
+graph TD
+    A[Python Function] --> B[Function Decorator]
+    B --> C[Tool Registration]
+    C --> D[Agent Integration]
+    D --> E[LLM Access]
+    
+    A --> F[Parameters Definition]
+    A --> G[Return Dictionary]
+    A --> H[Docstring Description]
+    
+    F --> I[Tool Configuration]
+    G --> I
+    H --> I
+    
+    style A fill:#e3f2fd
+    style I fill:#e8f5e8
+    style E fill:#fff3e0
+```
+
+#### 🏗️ Custom Tool Best Practices
+
+| Aspect | Requirement | Best Practice | Example |
+|--------|-------------|---------------|---------|
+| 📝 **Parameters** | JSON-serializable types | Use string, int, list, dict | `param: str` |
+| 🚫 **Default Values** | Not supported | Define all parameters | No `param="default"` |
+| 📤 **Return Type** | Dictionary preferred | Status + result structure | `{"status": "success", "result": "..."}` |
+| 📖 **Docstrings** | Clear descriptions | LLM-friendly explanations | Focus on tool purpose |
+
+#### ✨ Return Format Template
 
 ```python
+def custom_tool() -> dict:
+    """Tool description for LLM understanding"""
+    return {
+        "status": "success",           # success/error
+        "error_message": None,         # Error details if any
+        "result": "actual_data"        # Main result
+    }
+```
+
+## ⚠️ Important Limitations
+
+### 🚨 Critical Constraints
+
+```mermaid
+graph TD
+    A[Tool Limitations] --> B[Single Built-in Tool]
+    A --> C[No Tool Mixing]
+    A --> D[Agent Architecture Impact]
+    
+    B --> B1["❌ Only 1 built-in tool per agent"]
+    C --> C1["❌ Can't mix built-in + custom tools"]
+    D --> D1["✅ Use Multi-Agent for complex scenarios"]
+    
+    style B1 fill:#ffcdd2
+    style C1 fill:#ffcdd2
+    style D1 fill:#c8e6c9
+```
+
+### 1️⃣ Single Built-in Tool Restriction
+
+> 🚫 **Critical Limitation**: Each root agent can only use **ONE** built-in tool
+
+#### ❌ Not Supported Pattern
+
+```python
+# This will NOT work
 root_agent = Agent(
     name="RootAgent",
     model="gemini-2.0-flash",
     description="Root Agent",
-    tools=[built_in_code_execution, google_search],  # NOT SUPPORTED
+    tools=[built_in_code_execution, google_search],  # ❌ Multiple built-in tools
 )
 ```
 
-### Built-in Tools vs. Custom Tools
+#### ✅ Supported Pattern
 
-**You cannot mix built-in tools with custom function tools in the same agent.**
+```python
+# This WILL work
+root_agent = Agent(
+    name="SearchAgent",
+    model="gemini-2.0-flash", 
+    description="Web Search Agent",
+    tools=[google_search],  # ✅ Single built-in tool
+)
+```
 
-For example, this approach is **not** currently supported:
+### 2️⃣ Tool Mixing Restriction
+
+> 🚫 **Cannot combine** built-in tools with custom function tools in the same agent
+
+#### ❌ Not Supported Pattern
 
 ```python
 def get_current_time() -> dict:
-    """Get the current time in the format YYYY-MM-DD HH:MM:SS"""
-    return {
-        "current_time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-    }
+    """Get the current time"""
+    return {"current_time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
 
+# This will NOT work
 root_agent = Agent(
     name="RootAgent",
     model="gemini-2.0-flash",
-    description="Root Agent",
-    tools=[google_search, get_current_time],  # NOT SUPPORTED
+    description="Root Agent", 
+    tools=[google_search, get_current_time],  # ❌ Mixed tool types
 )
 ```
 
-To use both types of tools, you would need to use the Agent Tool approach described in the Multi-Agent example.
+#### ✅ Workaround Solutions
 
-## Implementation Example
+| Approach | Description | Use Case |
+|----------|-------------|----------|
+| 🤖 **Multi-Agent Setup** | Separate agents for different tools | Complex workflows |
+| 🔄 **Agent Switching** | Route between specialized agents | Tool-specific tasks |
+| 🏗️ **Agent Tool Pattern** | Use agents as tools | Advanced orchestration |
 
-### Understanding the Code
+## 💡 Implementation Example
 
-The agent.py file defines a tool agent that can use Google Search to find information on the web. The agent is configured with:
+### 🔍 Understanding the Architecture
 
-1. A name and description
-2. The Gemini model to use
-3. Instructions that tell the agent how to behave and what tools it can use
-4. The tools it can access (in this case, google_search)
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant A as Tool Agent
+    participant G as Google Search
+    participant L as LLM
+    
+    U->>A: "Search for AI news"
+    A->>L: Process request
+    L->>A: Determine need for search
+    A->>G: Execute search query
+    G->>A: Return search results
+    A->>L: Process results
+    L->>A: Generate response
+    A->>U: Enhanced answer with real data
+```
 
-The file also includes a commented-out example of a custom function tool `get_current_time()` that could be uncommented to explore custom tool functionality.
+### 🏗️ Code Structure Breakdown
 
-### Getting Started
+| Component | Purpose | Configuration |
+|-----------|---------|---------------|
+| 🏷️ **Name & Description** | Agent identity | "tool_agent", clear capability description |
+| 🧠 **Model** | LLM selection | "gemini-2.0-flash" for balanced performance |
+| 📝 **Instructions** | Behavior guidance | How to use tools effectively |
+| 🛠️ **Tools** | External capabilities | google_search for web access |
 
-This example uses the same virtual environment created in the root directory. Make sure you have:
+### 🎛️ Configuration Example
 
-1. Activated the virtual environment from the root directory:
+```python
+# Tool Agent Configuration
+root_agent = Agent(
+    name="tool_agent",
+    model="gemini-2.0-flash",
+    description="Agent with Google Search capability",
+    instructions="Use search when you need current information",
+    tools=[google_search]  # Built-in tool integration
+)
+```
+
+## 🚀 Getting Started
+
+### 📋 Prerequisites Checklist
+
+- [ ] ✅ Virtual environment activated
+- [ ] 🔑 Google API key configured  
+- [ ] 📁 Proper project structure
+- [ ] 🛠️ Tool dependencies available
+
+### 🔧 Environment Setup
+
+```mermaid
+graph LR
+    A[Root Directory] --> B[Activate .venv]
+    B --> C[Navigate to 2-tool-agent]
+    C --> D[Configure API Key]
+    D --> E[Ready to Run]
+    
+    style A fill:#e3f2fd
+    style E fill:#c8e6c9
+```
+
+#### 🔌 Virtual Environment Activation
+
 ```bash
+# 🔌 Activate virtual environment (from parent directory)
 # macOS/Linux:
 source ../.venv/bin/activate
+
 # Windows CMD:
 ..\.venv\Scripts\activate.bat
+
 # Windows PowerShell:
 ..\.venv\Scripts\Activate.ps1
 ```
 
-2. Set up your API key:
-   - Rename `.env.example` to `.env` in the tool_agent folder
-   - Add your Google API key to the `GOOGLE_API_KEY` variable in the `.env` file
+#### 🔑 API Key Configuration
 
-### Running the Example
+| Step | Action | Details |
+|------|--------|---------|
+| 1️⃣ | **Locate Template** | Find `.env.example` in tool_agent folder |
+| 2️⃣ | **Rename File** | Change to `.env` |
+| 3️⃣ | **Add API Key** | `GOOGLE_API_KEY=your_key_here` |
+| 4️⃣ | **Verify Setup** | Check tool agent loads correctly |
 
-To run the tool agent example:
+## 🎮 Running the Example
 
-1. Navigate to the 2-tool-agent directory containing your agent folder.
+### 🌐 Interactive Web UI (Recommended)
 
-2. Start the interactive web UI:
-```bash
-adk web
+```mermaid
+graph TD
+    A[Navigate to 2-tool-agent] --> B[Run: adk web]
+    B --> C[Server Starts]
+    C --> D[Open Browser: localhost:8000]
+    D --> E[Select 'tool_agent']
+    E --> F[Start Testing Tools]
+    
+    F --> G[Web Search Queries]
+    F --> H[Real-time Information]
+    F --> I[Enhanced Responses]
+    
+    style F fill:#e3f2fd
+    style G fill:#fff3e0
+    style H fill:#fff3e0
+    style I fill:#c8e6c9
 ```
 
-3. Access the web UI by opening the URL shown in your terminal (typically http://localhost:8000)
+### 🛠️ Available Run Methods
 
-4. Select the "tool_agent" from the dropdown menu in the top-left corner of the UI
+| Method | Command | Interface | Best For |
+|--------|---------|-----------|----------|
+| 🌐 **Web UI** | `adk web` | Browser-based | Interactive testing |
+| 💻 **Terminal** | `adk run tool_agent` | Command line | Quick validation |
+| 🔌 **API Server** | `adk api_server` | REST endpoints | Integration testing |
 
-5. Start chatting with your agent in the textbox at the bottom of the screen
+### 📝 Step-by-Step Process
 
-The ADK CLI tool provides several options:
+| Step | Action | Expected Result |
+|------|--------|-----------------|
+| 1️⃣ | Navigate to directory | `cd 2-tool-agent` |
+| 2️⃣ | Start web server | `adk web` |
+| 3️⃣ | Open browser | Visit `http://localhost:8000` |
+| 4️⃣ | Select agent | Choose "tool_agent" from dropdown |
+| 5️⃣ | Test functionality | Try search-based queries |
 
-- **`adk web`**: Launches an interactive web UI for testing your agent with a chat interface
-- **`adk run tool_agent`**: Runs your agent directly in the terminal
-- **`adk api_server`**: Starts a FastAPI server to test API requests to your agent
+## 💬 Example Prompts to Try
 
-### Example Prompts to Try
+### 🔍 Search-Powered Queries
 
-- "Search for recent news about artificial intelligence"
-- "Find information about Google's Agent Development Kit"
-- "What are the latest advancements in quantum computing?"
+```mermaid
+graph LR
+    A[User Query] --> B[Agent Analysis]
+    B --> C{Needs Current Info?}
+    C -->|Yes| D[Google Search]
+    C -->|No| E[Knowledge Base]
+    D --> F[Web Results]
+    E --> G[Direct Answer]
+    F --> H[Enhanced Response]
+    G --> H
+    
+    style D fill:#4285f4
+    style H fill:#34a853
+```
 
-You can exit the conversation or stop the server by pressing `Ctrl+C` in your terminal.
+### 📊 Query Categories
 
-## Additional Resources
+| Category | Example Prompts | Tool Usage |
+|----------|-----------------|------------|
+| 📰 **Current News** | "Search for recent news about artificial intelligence" | Google Search |
+| 🔬 **Research** | "Find information about Google's Agent Development Kit" | Google Search |
+| 🚀 **Technology** | "What are the latest advancements in quantum computing?" | Google Search |
+| 📈 **Market Data** | "Current stock prices for tech companies" | Google Search |
+| 🌐 **Real-time Info** | "Today's weather in San Francisco" | Google Search |
 
-- [Types of tools](https://google.github.io/adk-docs/tools/#full-example-tavily-search)
-- [ADK Function Tools Documentation](https://google.github.io/adk-docs/tools/function-tools/)
-- [ADK Built-in Tools Documentation](https://google.github.io/adk-docs/tools/built-in-tools/)
+### 🎯 Testing Scenarios
+
+#### 🔰 Basic Tool Tests
+- ✅ Simple web search queries
+- ✅ Current event questions
+- ✅ Fact verification requests
+
+#### 🔄 Advanced Tool Tests
+- ✅ Multi-step research tasks
+- ✅ Comparative information gathering
+- ✅ Real-time data integration
+
+## 🎉 Success Indicators
+
+### ✅ Your Tool Agent is Working When:
+
+```mermaid
+pie title Tool Agent Success Metrics
+    "Search Integration" : 25
+    "Real-time Data" : 25
+    "Response Quality" : 25
+    "Tool Selection" : 25
+```
+
+| Indicator | Description | What to Look For |
+|-----------|-------------|------------------|
+| 🔍 **Search Integration** | Uses Google Search when needed | Queries trigger web searches |
+| 📊 **Real-time Data** | Provides current information | Fresh, up-to-date responses |
+| 🎯 **Tool Selection** | Chooses appropriate tools | Smart tool usage decisions |
+| 📝 **Enhanced Responses** | Richer, more informative answers | Citations and current data |
+
+## 🚪 Exit & Troubleshooting
+
+### 🛑 Stopping the Agent
+
+```bash
+# Press Ctrl+C in terminal to stop any running ADK command
+Ctrl+C
+```
+
+### 🔧 Common Issues
+
+| Issue | Cause | Solution |
+|-------|-------|----------|
+| 🚫 **Tool not working** | API key missing | Check `.env` file |
+| 🔍 **No search results** | Network/permissions | Verify Google API access |
+| 🤖 **Agent not found** | Wrong directory | Run from parent folder |
+
+## 🎓 What You've Learned
+
+### 🏆 Key Achievements
+
+- [ ] 🛠️ Integrated external tools with agents
+- [ ] 🔍 Implemented Google Search capability
+- [ ] ⚠️ Understood tool limitations and constraints  
+- [ ] 🏗️ Learned tool architecture patterns
+- [ ] 🔧 Configured and tested tool functionality
+- [ ] 📊 Enhanced agent capabilities beyond text
+
+### 🚀 Next Steps
+
+Ready for more advanced concepts?
+
+| Next Example | Focus | Complexity | Tools Used |
+|--------------|-------|------------|------------|
+| 🔄 **LiteLLM Agent** | Model flexibility | ⭐⭐ | Multiple LLM providers |
+| 📊 **Structured Outputs** | Data formatting | ⭐⭐ | Pydantic models |
+| 💾 **Sessions & State** | Memory management | ⭐⭐⭐ | State persistence |
+
+## 📚 Additional Resources
+
+### 🔗 Official Documentation
+
+| Resource | Focus | Link |
+|----------|-------|------|
+| 🛠️ **Types of Tools** | Tool overview | [ADK Tools Documentation](https://google.github.io/adk-docs/tools/#full-example-tavily-search) |
+| 🔧 **Function Tools** | Custom tool creation | [Function Tools Guide](https://google.github.io/adk-docs/tools/function-tools/) |
+| 🔍 **Built-in Tools** | Pre-built capabilities | [Built-in Tools Reference](https://google.github.io/adk-docs/tools/built-in-tools/) |
+
+---
+
+<div align="center">
+
+### 🎉 Congratulations! 
+
+You've successfully enhanced your agent with external tools! 
+
+[![Next: LiteLLM Agent](https://img.shields.io/badge/Next-LiteLLM%20Agent-purple?style=for-the-badge&logo=arrow-right)](../3-litellm-agent/)
+[![Previous: Basic Agent](https://img.shields.io/badge/Previous-Basic%20Agent-blue?style=for-the-badge&logo=arrow-left)](../1-basic-agent/)
+[![Back to Main](https://img.shields.io/badge/Back-Main%20Course-green?style=for-the-badge&logo=home)](../)
+
+*Ready to explore multiple LLM providers? Let's dive into LiteLLM! 🔄*
+
+</div>
