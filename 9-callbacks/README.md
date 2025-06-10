@@ -1,411 +1,483 @@
-# 🔄 Stateful Multi-Agent Systems in ADK
+# 📊 Callbacks and Event Monitoring in ADK
 
-[![ADK](https://img.shields.io/badge/ADK-Stateful%20Multi--Agent-darkgreen.svg)](https://google.github.io/adk-docs/)
-[![Difficulty](https://img.shields.io/badge/Difficulty-Expert-red.svg)](.)
+[![ADK](https://img.shields.io/badge/ADK-Callbacks-lightblue.svg)](https://google.github.io/adk-docs/)
+[![Difficulty](https://img.shields.io/badge/Difficulty-Advanced-red.svg)](.)
 [![Python](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![State Management](https://img.shields.io/badge/State-Persistent%20Memory-purple.svg)](.)
-[![Orchestration](https://img.shields.io/badge/Multi--Agent-Coordination-orange.svg)](.)
+[![Event Monitoring](https://img.shields.io/badge/Monitoring-Real--Time-orange.svg)](.)
+[![Observability](https://img.shields.io/badge/Observability-System%20Insights-purple.svg)](.)
 
-> 🎯 **Master Complex Agent Coordination with Memory** - Learn to build sophisticated systems where specialized agents share persistent state and coordinate intelligent responses
+> 🎯 **Monitor Your Agents in Real-Time** - Learn to implement sophisticated event monitoring, real-time feedback, and comprehensive system observability
 
-## 🧠 What is a Stateful Multi-Agent System?
+## 📡 What are Callbacks in ADK?
 
-A **Stateful Multi-Agent System** represents the pinnacle of ADK capabilities, combining persistent memory with intelligent agent orchestration. This creates sophisticated agent ecosystems that remember, learn, and coordinate across complex interactions.
+**Callbacks** in ADK provide real-time event monitoring and observability for your agent systems. They enable you to track agent behavior, monitor performance, collect analytics, and respond to events as they happen.
 
-### 🔄 Evolution of Agent Architectures
+### 🔄 System Observability Evolution
 
 ```mermaid
 graph TB
-    subgraph "Single Agent"
-        A1[User Query] --> B1[Single Agent]
-        B1 --> C1[Limited Response]
+    subgraph "Black Box Agent"
+        A1[User Input] --> B1[Agent Processing]
+        B1 --> C1[Response]
         
-        style C1 fill:#ffcdd2
+        D1[❓ Unknown Performance]
+        E1[❓ Hidden Errors]
+        F1[❓ No Analytics]
+        
+        style D1 fill:#ffcdd2
+        style E1 fill:#ffcdd2
+        style F1 fill:#ffcdd2
     end
     
-    subgraph "Multi-Agent"
-        A2[User Query] --> B2[Manager Agent]
-        B2 --> C2[Specialist Routing]
-        C2 --> D2[Expert Response]
+    subgraph "Monitored Agent with Callbacks"
+        A2[User Input] --> B2[Agent Processing]
+        B2 --> C2[Response]
         
-        style D2 fill:#fff3e0
-    end
-    
-    subgraph "Stateful Multi-Agent"
-        A3[User Query] --> B3[Stateful Manager]
-        B3 --> C3[Context + History]
-        C3 --> D3[Specialist + Memory]
-        D3 --> E3[Personalized Expert Response]
+        B2 --> G2[Real-time Events]
+        G2 --> H2[Performance Metrics]
+        G2 --> I2[Error Tracking]
+        G2 --> J2[Usage Analytics]
+        G2 --> K2[Custom Monitoring]
         
-        style E3 fill:#c8e6c9
+        style H2 fill:#c8e6c9
+        style I2 fill:#c8e6c9
+        style J2 fill:#c8e6c9
+        style K2 fill:#c8e6c9
     end
 ```
 
-### 🏗️ Core Capabilities Matrix
+### 🏗️ Callback System Benefits
 
-| Capability | Single Agent | Multi-Agent | Stateful Multi-Agent | Impact |
-|------------|---------------|-------------|---------------------|--------|
-| 🎯 **Specialization** | ❌ | ✅ | ✅ | Domain expertise |
-| 🧠 **Memory** | ❌ | ❌ | ✅ | Personalization |
-| 🔄 **Context Continuity** | ❌ | ❌ | ✅ | Relationship building |
-| 🎭 **Dynamic Routing** | ❌ | ✅ | ✅ | Intelligent delegation |
-| 📊 **Shared State** | ❌ | ❌ | ✅ | Coordinated responses |
-| 🎯 **Adaptive Behavior** | ❌ | ❌ | ✅ | Learning from interactions |
+| Benefit | Description | Impact |
+|---------|-------------|--------|
+| 👁️ **Real-time Visibility** | See agent behavior as it happens | Immediate issue detection |
+| 📊 **Performance Monitoring** | Track response times and usage | System optimization |
+| 🚨 **Error Detection** | Catch and respond to failures | Improved reliability |
+| 📈 **Analytics Collection** | Gather user interaction data | Data-driven insights |
+| 🔄 **Dynamic Response** | React to events in real-time | Adaptive system behavior |
 
-## 🏗️ Stateful Multi-Agent Architecture
+## 🏗️ Callback Architecture
 
-### 🔧 System Components and Flow
+### 🔧 Event-Driven Monitoring System
 
 ```mermaid
 graph TD
-    A[User Interaction] --> B[Stateful Manager Agent]
-    B --> C[Session State Access]
-    C --> D[Query Classification]
-    D --> E{Route to Specialist}
+    A[Agent Execution] --> B[Event Generation]
+    B --> C[Callback Dispatcher]
+    C --> D[Registered Callbacks]
     
-    E -->|Policy Questions| F[Policy Agent]
-    E -->|Sales Inquiries| G[Sales Agent]
-    E -->|Course Support| H[Course Support Agent]
-    E -->|Order Management| I[Order Agent]
+    D --> E[Performance Monitor]
+    D --> F[Error Handler]
+    D --> G[Analytics Collector]
+    D --> H[Custom Logger]
+    D --> I[Alert System]
     
-    F --> J[Shared State Updates]
-    G --> J
-    H --> J
-    I --> J
+    E --> J[Metrics Database]
+    F --> K[Error Logs]
+    G --> L[Analytics Store]
+    H --> M[Application Logs]
+    I --> N[Notification Service]
     
-    J --> K[Persistent Storage]
-    K --> L[Updated Context]
-    L --> M[Personalized Response]
-    
-    C --> N[User History]
-    C --> O[Purchase Records]
-    C --> P[Preferences]
-    
-    style B fill:#2196f3
+    style C fill:#2196f3
     style J fill:#4caf50
-    style M fill:#ff9800
+    style K fill:#ff9800
+    style L fill:#9c27b0
+    style N fill:#f44336
 ```
 
-### 🔄 State Sharing Mechanics
+### 📡 Callback Event Flow
 
 ```mermaid
 sequenceDiagram
     participant U as User
-    participant M as Manager Agent
-    participant S as Session State
-    participant SA as Sales Agent
-    participant CS as Course Support
-    participant O as Order Agent
+    participant A as Agent
+    participant E as Event System
+    participant C1 as Performance Callback
+    participant C2 as Error Callback
+    participant C3 as Analytics Callback
+    participant M as Monitoring System
     
-    U->>M: "I want to buy a course"
-    M->>S: Get current state
-    S->>M: User profile + history
-    M->>SA: Route to Sales Agent
-    SA->>S: Access user data
-    S->>SA: Purchase history
-    SA->>S: Update purchased courses
-    SA->>U: Purchase confirmation
+    U->>A: Send request
+    A->>E: Emit: request_started
+    E->>C1: Trigger performance monitoring
+    E->>C3: Log interaction start
     
-    U->>M: "Tell me about my course content"
-    M->>S: Get updated state
-    S->>M: Including new purchase
-    M->>CS: Route to Course Support
-    CS->>S: Check course access
-    S->>CS: Purchased course list
-    CS->>U: Course content details
+    A->>A: Process request
+    
+    alt Success Path
+        A->>E: Emit: tool_used
+        E->>C1: Track tool usage
+        E->>C3: Log tool interaction
+        
+        A->>E: Emit: response_generated
+        E->>C1: Measure response time
+        E->>C3: Log completion
+        
+        A->>U: Return response
+        
+    else Error Path
+        A->>E: Emit: error_occurred
+        E->>C2: Handle error
+        E->>C3: Log error event
+        C2->>M: Send alert
+    end
 ```
 
-### 🗄️ Shared State Architecture
-
-```mermaid
-classDiagram
-    class SessionState {
-        +string user_name
-        +list purchased_courses
-        +list interaction_history
-        +dict user_preferences
-        +dict purchase_metadata
-        +datetime last_interaction
-    }
-    
-    class ManagerAgent {
-        +route_query()
-        +update_history()
-        +access_state()
-    }
-    
-    class PolicyAgent {
-        +handle_policy_queries()
-        +access_user_context()
-    }
-    
-    class SalesAgent {
-        +process_purchases()
-        +update_purchase_state()
-        +recommend_courses()
-    }
-    
-    class CourseSupport {
-        +provide_course_help()
-        +check_access_rights()
-        +track_usage()
-    }
-    
-    class OrderAgent {
-        +manage_orders()
-        +process_refunds()
-        +update_order_state()
-    }
-    
-    SessionState --> ManagerAgent : shared_access
-    SessionState --> PolicyAgent : shared_access
-    SessionState --> SalesAgent : shared_access
-    SessionState --> CourseSupport : shared_access
-    SessionState --> OrderAgent : shared_access
-```
-
-## 🎯 Customer Service System Example
-
-### 🏢 AI Developer Accelerator Support
+### 🎭 Callback Types and Purposes
 
 ```mermaid
 mindmap
-  root)Customer Service System(
-    User Context
-      Personal information
-      Purchase history
-      Interaction patterns
-      Learning preferences
-    Specialized Agents
-      Policy Agent
-        Refund policies
-        Terms of service
-        Community guidelines
-        Privacy information
-      Sales Agent
-        Course recommendations
-        Purchase processing
-        Pricing information
-        Promotions
-      Course Support
-        Content access
-        Technical help
-        Learning guidance
-        Progress tracking
-      Order Management
-        Order history
-        Refund processing
-        Payment issues
-        Account management
-    Shared Intelligence
-      Cross-agent learning
-      Context preservation
-      Coordinated responses
-      Unified experience
+  root)Callback Categories(
+    Lifecycle Events
+      Agent start
+      Agent stop
+      Session begin
+      Session end
+    Execution Events
+      Request received
+      Processing started
+      Tool execution
+      Response generated
+    Performance Events
+      Response time
+      Memory usage
+      CPU utilization
+      Throughput metrics
+    Error Events
+      Exception caught
+      Tool failure
+      Timeout occurred
+      Validation error
+    Business Events
+      User interaction
+      Feature usage
+      Conversion events
+      Custom metrics
 ```
 
-### 🔄 Dynamic Access Control
+## 🔧 Callback Implementation Patterns
 
-```mermaid
-graph TD
-    A[User Query: Course Content] --> B[Manager Analysis]
-    B --> C{Check Purchase Status}
-    
-    C -->|Purchased| D[Route to Course Support]
-    C -->|Not Purchased| E[Route to Sales Agent]
-    
-    D --> F[Provide Course Content Help]
-    E --> G[Suggest Course Purchase]
-    
-    F --> H[Update Usage Metrics]
-    G --> I[Track Sales Funnel]
-    
-    H --> J[Enhanced Support]
-    I --> K[Personalized Offers]
-    
-    style C fill:#2196f3
-    style F fill:#4caf50
-    style G fill:#ff9800
-```
-
-## 🏗️ Project Structure
-
-### 📁 Advanced Directory Organization
-
-```mermaid
-graph TD
-    A[8-stateful-multi-agent/] --> B[customer_service_agent/]
-    A --> C[main.py]
-    A --> D[utils.py]
-    A --> E[.env]
-    A --> F[README.md]
-    
-    B --> G[__init__.py]
-    B --> H[agent.py]
-    B --> I[sub_agents/]
-    
-    I --> J[course_support_agent/]
-    I --> K[order_agent/]
-    I --> L[policy_agent/]
-    I --> M[sales_agent/]
-    
-    J --> N[__init__.py]
-    J --> O[agent.py]
-    K --> P[__init__.py]
-    K --> Q[agent.py]
-    L --> R[__init__.py]
-    L --> S[agent.py]
-    M --> T[__init__.py]
-    M --> U[agent.py]
-    
-    C --> V[Application Entry Point]
-    V --> W[Session Management]
-    V --> X[State Initialization]
-    V --> Y[Agent Coordination]
-    
-    D --> Z[State Management Utilities]
-    Z --> AA[History Tracking]
-    Z --> BB[State Updates]
-    Z --> CC[Context Management]
-    
-    style A fill:#e3f2fd
-    style I fill:#4caf50
-    style V fill:#ff9800
-    style Z fill:#9c27b0
-```
-
-```
-8-stateful-multi-agent/
-│
-├── customer_service_agent/         # 🎯 Main Agent Package
-│   ├── __init__.py                # 📦 Package discovery
-│   ├── agent.py                   # 🤖 Root agent with state access
-│   └── sub_agents/                # 🏢 Specialist Team
-│       ├── course_support_agent/  # 📚 Course content support
-│       │   ├── __init__.py        # 📦 Agent package
-│       │   └── agent.py           # 🎓 Learning specialist
-│       ├── order_agent/           # 📦 Order management
-│       │   ├── __init__.py        # 📦 Agent package
-│       │   └── agent.py           # 💳 Transaction specialist
-│       ├── policy_agent/          # 📋 Policy information
-│       │   ├── __init__.py        # 📦 Agent package
-│       │   └── agent.py           # 📝 Policy specialist
-│       └── sales_agent/           # 💼 Sales and marketing
-│           ├── __init__.py        # 📦 Agent package
-│           └── agent.py           # 🎯 Sales specialist
-│
-├── main.py                        # 🚀 Application entry point
-├── utils.py                       # 🛠️ State management utilities
-├── .env                          # 🔑 Environment variables
-└── README.md                     # 📖 Documentation
-```
-
-## 🔧 Key Components Deep Dive
-
-### 1️⃣ Advanced Session Management
+### 1️⃣ Performance Monitoring Callbacks
 
 ```mermaid
 graph LR
-    A[Session Initialization] --> B[State Schema Definition]
-    B --> C[Default Values Setup]
-    C --> D[Agent Registration]
-    D --> E[State Sharing Configuration]
-    E --> F[Ready for Interactions]
+    A[Request Start] --> B[Start Timer]
+    B --> C[Track Memory]
+    C --> D[Agent Processing]
+    D --> E[End Timer]
+    E --> F[Calculate Metrics]
+    F --> G[Store Performance Data]
+    G --> H[Alert if Threshold Exceeded]
     
-    style A fill:#e3f2fd
-    style F fill:#c8e6c9
+    style B fill:#e3f2fd
+    style F fill:#4caf50
+    style H fill:#ff9800
 ```
 
-#### 📊 State Schema Design
+#### 📊 Performance Metrics Collection
 
 ```python
-def initialize_state():
-    """Comprehensive state initialization for multi-agent coordination."""
-    return {
-        # User Identity & Profile
-        "user_name": "Brandon Hancock",
-        "user_id": "user_12345",
-        "email": "brandon@example.com",
+class PerformanceCallback:
+    def __init__(self):
+        self.start_time = None
+        self.memory_start = None
         
-        # Purchase & Access Management
-        "purchased_courses": [],
-        "access_permissions": {},
-        "subscription_status": "active",
+    def on_request_start(self, event):
+        self.start_time = time.time()
+        self.memory_start = psutil.Process().memory_info().rss
         
-        # Interaction & Learning History
-        "interaction_history": [],
-        "learning_progress": {},
-        "support_tickets": [],
+    def on_response_complete(self, event):
+        duration = time.time() - self.start_time
+        memory_used = psutil.Process().memory_info().rss - self.memory_start
         
-        # Personalization & Preferences
-        "communication_style": "friendly",
-        "preferred_topics": [],
-        "notification_settings": {},
-        
-        # System & Analytics
-        "session_metadata": {
-            "created_at": datetime.now().isoformat(),
-            "last_active": datetime.now().isoformat(),
-            "interaction_count": 0,
-            "agent_usage": {}
+        metrics = {
+            "response_time": duration,
+            "memory_usage": memory_used,
+            "agent_name": event.agent_name,
+            "timestamp": datetime.now().isoformat()
         }
-    }
+        
+        self.store_metrics(metrics)
+        if duration > self.alert_threshold:
+            self.send_alert(metrics)
 ```
 
-### 2️⃣ Intelligent State Updates
+### 2️⃣ Error Handling and Alerting
 
 ```mermaid
 sequenceDiagram
     participant A as Agent
-    participant S as State Manager
-    participant V as Validator
-    participant P as Persistence Layer
-    participant N as Notification System
+    participant E as Error Callback
+    participant L as Logger
+    participant N as Notification Service
+    participant D as Dashboard
     
-    A->>S: Request state update
-    S->>V: Validate changes
-    V->>S: Validation result
+    A->>E: Error event
+    E->>E: Categorize error
+    E->>L: Log error details
     
-    alt Valid Update
-        S->>P: Persist changes
-        P->>S: Confirm persistence
-        S->>N: Trigger state change events
-        N->>A: Update confirmation
-    else Invalid Update
-        S->>A: Rejection with reason
+    alt Critical Error
+        E->>N: Send immediate alert
+        N->>D: Update dashboard
+    else Minor Error
+        E->>L: Log for analysis
     end
+    
+    E->>E: Track error patterns
+    E->>D: Update error metrics
 ```
 
-### 3️⃣ Cross-Agent Communication
+### 3️⃣ Analytics and User Insights
 
 ```mermaid
 graph TD
-    A[Agent Communication Patterns] --> B[Shared State Access]
-    A --> C[Event Broadcasting]
-    A --> D[Direct Agent Calls]
-    A --> E[State-Based Coordination]
+    A[User Interaction] --> B[Analytics Callback]
+    B --> C[Extract User Intent]
+    B --> D[Track Feature Usage]
+    B --> E[Measure Satisfaction]
+    B --> F[Record Patterns]
     
-    B --> B1[Read current state]
-    B --> B2[Update shared data]
-    B --> B3[Subscribe to changes]
+    C --> G[Intent Analytics Store]
+    D --> H[Feature Usage DB]
+    E --> I[Satisfaction Metrics]
+    F --> J[Pattern Analysis]
     
-    C --> C1[Purchase events]
-    C --> C2[Support tickets]
-    C --> C3[User preferences]
+    G --> K[Business Intelligence]
+    H --> K
+    I --> K
+    J --> K
     
-    D --> D1[Expert consultation]
-    D --> D2[Handoff protocols]
-    D --> D3[Escalation chains]
+    style B fill:#2196f3
+    style K fill:#4caf50
+```
+
+## 🎯 Real-World Callback Examples
+
+### 🏢 Customer Service Monitoring System
+
+```mermaid
+graph TD
+    A[Customer Service Agent] --> B[Multi-Layer Monitoring]
     
-    E --> E1[Conditional routing]
-    E --> E2[Access control]
-    E --> E3[Personalization]
+    B --> C[Performance Layer]
+    B --> D[Business Layer]
+    B --> E[Quality Layer]
+    B --> F[Alert Layer]
     
-    style A fill:#2196f3
-    style B1 fill:#4caf50
-    style C1 fill:#ff9800
-    style D1 fill:#9c27b0
-    style E1 fill:#f44336
+    C --> C1[Response Times]
+    C --> C2[Resource Usage]
+    C --> C3[Throughput Metrics]
+    
+    D --> D1[Customer Satisfaction]
+    D --> D2[Issue Resolution Rate]
+    D --> D3[Agent Utilization]
+    
+    E --> E1[Response Quality]
+    E --> E2[Accuracy Metrics]
+    E --> E3[Consistency Checks]
+    
+    F --> F1[SLA Violations]
+    F --> F2[Error Spikes]
+    F --> F3[Performance Degradation]
+    
+    style B fill:#2196f3
+    style C fill:#4caf50
+    style D fill:#ff9800
+    style E fill:#9c27b0
+    style F fill:#f44336
+```
+
+### 📊 Comprehensive Monitoring Dashboard
+
+```mermaid
+graph LR
+    A[Callback Events] --> B[Event Aggregator]
+    B --> C[Real-time Dashboard]
+    
+    C --> D[Performance Metrics]
+    C --> E[Error Analytics]
+    C --> F[User Behavior]
+    C --> G[System Health]
+    
+    D --> D1[Response Time Charts]
+    D --> D2[Throughput Graphs]
+    D --> D3[Resource Utilization]
+    
+    E --> E1[Error Rate Trends]
+    E --> E2[Failure Classifications]
+    E --> E3[Recovery Metrics]
+    
+    F --> F1[Interaction Patterns]
+    F --> F2[Feature Adoption]
+    F --> F3[User Satisfaction]
+    
+    G --> G1[System Status]
+    G --> G2[Health Scores]
+    G --> G3[Availability Metrics]
+    
+    style C fill:#2196f3
+    style D1 fill:#4caf50
+    style E1 fill:#ff9800
+    style F1 fill:#9c27b0
+    style G1 fill:#f44336
+```
+
+## 🏗️ Project Structure
+
+### 📁 Callback System Organization
+
+```mermaid
+graph TD
+    A[9-callbacks/] --> B[monitoring_agent/]
+    A --> C[callbacks/]
+    A --> D[main.py]
+    A --> E[utils.py]
+    A --> F[dashboard.py]
+    A --> G[.env]
+    
+    B --> H[__init__.py]
+    B --> I[agent.py]
+    
+    C --> J[performance_callback.py]
+    C --> K[error_callback.py]
+    C --> L[analytics_callback.py]
+    C --> M[custom_callback.py]
+    C --> N[__init__.py]
+    
+    D --> O[Application Entry Point]
+    O --> P[Callback Registration]
+    O --> Q[Agent Initialization]
+    O --> R[Monitoring Setup]
+    
+    E --> S[Utility Functions]
+    S --> T[Metric Helpers]
+    S --> U[Alert Systems]
+    S --> V[Data Processing]
+    
+    F --> W[Monitoring Dashboard]
+    W --> X[Real-time Visualizations]
+    W --> Y[Metric Displays]
+    W --> Z[Alert Interface]
+    
+    style A fill:#e3f2fd
+    style C fill:#4caf50
+    style O fill:#ff9800
+    style W fill:#9c27b0
+```
+
+```
+9-callbacks/
+│
+├── monitoring_agent/              # 🤖 Monitored Agent Package
+│   ├── __init__.py               # 📦 Package discovery
+│   └── agent.py                  # 🎯 Agent with callback integration
+│
+├── callbacks/                    # 📊 Callback System
+│   ├── __init__.py              # 📦 Callback package
+│   ├── performance_callback.py   # ⚡ Performance monitoring
+│   ├── error_callback.py        # 🚨 Error handling and alerts
+│   ├── analytics_callback.py    # 📈 User analytics collection
+│   └── custom_callback.py       # 🔧 Custom monitoring logic
+│
+├── main.py                       # 🚀 Application with callbacks
+├── utils.py                      # 🛠️ Monitoring utilities
+├── dashboard.py                  # 📊 Real-time monitoring dashboard
+├── .env                         # 🔑 Environment variables
+└── README.md                    # 📖 Documentation
+```
+
+## 🔧 Callback Implementation Guide
+
+### 1️⃣ Basic Callback Structure
+
+```mermaid
+classDiagram
+    class BaseCallback {
+        +string name
+        +dict config
+        +on_agent_start()
+        +on_request_received()
+        +on_tool_executed()
+        +on_response_generated()
+        +on_error_occurred()
+        +on_agent_stop()
+    }
+    
+    class PerformanceCallback {
+        +dict metrics
+        +measure_response_time()
+        +track_resource_usage()
+        +generate_performance_report()
+    }
+    
+    class ErrorCallback {
+        +list error_log
+        +categorize_error()
+        +send_alert()
+        +track_error_patterns()
+    }
+    
+    class AnalyticsCallback {
+        +dict user_data
+        +track_user_interaction()
+        +analyze_behavior_patterns()
+        +generate_insights()
+    }
+    
+    BaseCallback <|-- PerformanceCallback
+    BaseCallback <|-- ErrorCallback
+    BaseCallback <|-- AnalyticsCallback
+```
+
+### 2️⃣ Event Registration System
+
+```mermaid
+sequenceDiagram
+    participant M as Main App
+    participant R as Callback Registry
+    participant C1 as Performance Callback
+    participant C2 as Error Callback
+    participant C3 as Analytics Callback
+    participant A as Agent
+    
+    M->>R: Initialize registry
+    M->>C1: Create performance callback
+    M->>C2: Create error callback
+    M->>C3: Create analytics callback
+    
+    M->>R: Register callbacks
+    R->>R: Store callback references
+    
+    M->>A: Initialize agent with callbacks
+    A->>R: Connect to callback system
+    
+    Note over A,R: Agent ready with monitoring
+```
+
+### 3️⃣ Dynamic Callback Configuration
+
+```python
+callback_config = {
+    "performance": {
+        "enabled": True,
+        "metrics": ["response_time", "memory_usage", "cpu_usage"],
+        "alert_thresholds": {
+            "response_time": 3.0,
+            "memory_usage": 500 * 1024 * 1024  # 500MB
+        }
+    },
+    "error_handling": {
+        "enabled": True,
+        "alert_levels": ["critical", "warning"],
+        "notification_channels": ["email", "slack"]
+    },
+    "analytics": {
+        "enabled": True,
+        "track_user_behavior": True,
+        "collect_feedback": True,
+        "export_format": "json"
+    }
+}
 ```
 
 ## 🚀 Getting Started
@@ -414,19 +486,19 @@ graph TD
 
 - [ ] ✅ Virtual environment activated
 - [ ] 🔑 Google API key configured
-- [ ] 🧠 Understanding of multi-agent systems
-- [ ] 💾 Familiarity with state management concepts
-- [ ] 🏗️ Knowledge of complex system architectures
+- [ ] 📊 Understanding of event-driven systems
+- [ ] 🔧 Familiarity with monitoring concepts
+- [ ] 📈 Basic knowledge of metrics and analytics
 
 ### 🔧 Environment Setup
 
 ```mermaid
 graph LR
     A[Root Directory] --> B[Activate .venv]
-    B --> C[Navigate to 8-stateful-multi-agent]
-    C --> D[Configure API Keys]
-    D --> E[Initialize State Schema]
-    E --> F[Ready for Complex Coordination]
+    B --> C[Navigate to 9-callbacks]
+    C --> D[Configure Monitoring]
+    D --> E[Initialize Callbacks]
+    E --> F[Ready for Real-time Monitoring]
     
     style A fill:#e3f2fd
     style F fill:#c8e6c9
@@ -451,382 +523,349 @@ source ../.venv/bin/activate
 ```bash
 # Configure environment variables
 GOOGLE_API_KEY=your_google_api_key_here
-SESSION_PERSISTENCE=memory  # or 'database' for production
+MONITORING_ENABLED=true
+DASHBOARD_PORT=8080
+ALERT_EMAIL=admin@yourcompany.com
 LOG_LEVEL=INFO
 ```
 
-## 🎮 Running the Complex System
+## 🎮 Running the Monitored System
 
-### 🖥️ Interactive Stateful Session
+### 🖥️ Interactive Monitoring Session
 
 ```mermaid
 graph TD
-    A[Run: python main.py] --> B[Initialize Session Service]
-    B --> C[Create/Load User Session]
-    C --> D[Load State Schema]
-    D --> E[Register All Agents]
-    E --> F[Enable State Sharing]
-    F --> G[Start Interactive Loop]
+    A[Run: python main.py] --> B[Initialize Callback System]
+    B --> C[Register All Callbacks]
+    C --> D[Start Agent with Monitoring]
+    D --> E[Launch Dashboard]
+    E --> F[Begin Interactive Session]
     
-    G --> H[Process User Input]
-    H --> I[Update Interaction History]
-    I --> J[Intelligent Agent Routing]
-    J --> K[Specialist Processing]
-    K --> L[State Updates]
-    L --> M[Coordinated Response]
-    M --> G
+    F --> G[Process User Requests]
+    G --> H[Trigger Callback Events]
+    H --> I[Real-time Metric Updates]
+    I --> J[Dashboard Visualization]
+    J --> G
     
-    style F fill:#4caf50
-    style L fill:#ff9800
-    style M fill:#2196f3
+    style E fill:#4caf50
+    style I fill:#ff9800
+    style J fill:#2196f3
 ```
 
-### 📝 Execution Flow
+### 📝 Monitoring Execution Flow
 
 | Step | Action | Expected Result |
 |------|--------|-----------------|
-| 1️⃣ | **Navigate to directory** | `cd 8-stateful-multi-agent` |
+| 1️⃣ | **Navigate to directory** | `cd 9-callbacks` |
 | 2️⃣ | **Run application** | `python main.py` |
-| 3️⃣ | **Session initialization** | State schema loaded with defaults |
-| 4️⃣ | **Agent registration** | All specialists connected to shared state |
-| 5️⃣ | **Interactive mode** | Complex multi-agent coordination begins |
+| 3️⃣ | **Callback initialization** | All monitoring systems activated |
+| 4️⃣ | **Dashboard launch** | Real-time monitoring interface |
+| 5️⃣ | **Interactive mode** | Agent with full observability |
 
-### 🔄 System Startup Sequence
+### 🔄 System Startup with Monitoring
 
 ```mermaid
 sequenceDiagram
     participant M as Main App
-    participant S as Session Service
-    participant State as State Manager
-    participant MA as Manager Agent
-    participant Agents as Specialist Agents
+    participant CB as Callback System
+    participant A as Agent
+    participant D as Dashboard
+    participant DB as Database
     
-    M->>S: Initialize session service
-    M->>State: Create state schema
-    State->>S: Register state structure
+    M->>CB: Initialize callback registry
+    CB->>CB: Load callback configurations
     
-    M->>MA: Initialize manager agent
-    MA->>Agents: Load all specialists
-    Agents->>State: Connect to shared state
+    M->>A: Create agent with callbacks
+    A->>CB: Register event handlers
     
-    M->>State: Create user session
-    State->>S: Persist initial state
+    M->>D: Start monitoring dashboard
+    D->>DB: Connect to metrics database
     
-    M->>MA: Start interactive mode
-    MA->>M: Ready for complex coordination
+    M->>CB: Enable real-time monitoring
+    CB->>D: Begin metric streaming
+    
+    M->>A: Start interactive session
+    A->>CB: Emit: agent_started
+    CB->>D: Update dashboard status
 ```
 
-## 💬 Advanced Conversation Flows
+## 💬 Real-Time Monitoring Examples
 
-### 🎯 Comprehensive Customer Journey
+### 📊 Performance Monitoring in Action
 
 ```mermaid
 graph LR
-    A[New User] --> B[Inquiry Phase]
-    B --> C[Purchase Decision]
-    C --> D[Course Access]
-    D --> E[Ongoing Support]
-    E --> F[Advanced User]
+    A[User Query] --> B[Performance Callback Start]
+    B --> C[Agent Processing]
+    C --> D[Tool Execution Tracked]
+    D --> E[Response Generation]
+    E --> F[Performance Callback End]
+    F --> G[Metrics Calculated]
+    G --> H[Dashboard Update]
     
-    B --> B1[Policy Questions]
-    B --> B2[Course Information]
+    H --> I[Response Time: 1.2s]
+    H --> J[Memory: 45MB]
+    H --> K[CPU: 12%]
+    H --> L[Status: Normal]
     
-    C --> C1[Purchase Processing]
-    C --> C2[Payment Handling]
-    
-    D --> D1[Content Access]
-    D --> D2[Technical Support]
-    
-    E --> E1[Progress Tracking]
-    E --> E2[Additional Purchases]
-    
-    F --> F1[Community Engagement]
-    F --> F2[Advanced Features]
-    
-    style A fill:#e3f2fd
-    style F fill:#c8e6c9
+    style B fill:#e3f2fd
+    style G fill:#4caf50
+    style I fill:#c8e6c9
+    style J fill:#c8e6c9
+    style K fill:#c8e6c9
+    style L fill:#c8e6c9
 ```
 
-### 📊 State Evolution Through Interactions
+### 🚨 Error Detection and Alerting
 
 ```mermaid
-stateDiagram-v2
-    [*] --> NewUser
-    NewUser --> Inquiring: Initial questions
-    Inquiring --> Purchasing: Decides to buy
-    Purchasing --> CourseMember: Purchase complete
-    CourseMember --> ActiveLearner: Accessing content
-    ActiveLearner --> AdvancedUser: Multiple courses
+sequenceDiagram
+    participant U as User
+    participant A as Agent
+    participant E as Error Callback
+    participant N as Notification System
+    participant T as Team
     
-    Inquiring --> Inquiring: More questions
-    CourseMember --> Purchasing: Additional purchases
-    ActiveLearner --> CourseMember: Support needed
-    AdvancedUser --> ActiveLearner: New course access
+    U->>A: Complex query
+    A->>A: Processing fails
+    A->>E: Emit: error_occurred
     
-    state NewUser {
-        [*] --> GatheringInfo
-        GatheringInfo --> PolicyQuestions
-        PolicyQuestions --> CourseInterest
-    }
+    E->>E: Analyze error severity
     
-    state Purchasing {
-        [*] --> SelectingCourse
-        SelectingCourse --> ProcessingPayment
-        ProcessingPayment --> ConfirmingPurchase
-    }
+    alt Critical Error
+        E->>N: Send immediate alert
+        N->>T: SMS/Email notification
+        E->>E: Log for post-mortem
+    else Recoverable Error
+        E->>A: Suggest retry
+        A->>U: Graceful fallback response
+        E->>E: Log for trend analysis
+    end
+```
+
+### 📈 Analytics Collection Flow
+
+```mermaid
+graph TD
+    A[User Interaction] --> B[Analytics Callback]
+    B --> C[Extract Interaction Data]
+    C --> D[User Intent Analysis]
+    C --> E[Feature Usage Tracking]
+    C --> F[Satisfaction Metrics]
     
-    state ActiveLearner {
-        [*] --> AccessingContent
-        AccessingContent --> SeekingSupport
-        SeekingSupport --> ProgressTracking
-    }
-```
-
-### 🎭 Multi-Agent Conversation Examples
-
-#### 📚 Complete Customer Journey
-
-**Phase 1: Initial Inquiry**
-```
-User: "What courses do you offer?"
-→ Manager Agent routes to Sales Agent
-→ State: interaction_history updated
-→ Sales Agent: Provides course catalog based on user profile
-→ State: tracks interest areas
-```
-
-**Phase 2: Purchase Decision**
-```
-User: "I want to buy the AI Marketing Platform course"
-→ Manager Agent routes to Sales Agent
-→ Sales Agent: Processes purchase
-→ State: purchased_courses updated
-→ State: access_permissions granted
-→ Sales Agent: Confirms purchase and access
-```
-
-**Phase 3: Course Access**
-```
-User: "How do I access my course content?"
-→ Manager Agent: Checks purchase status in state
-→ Manager Agent routes to Course Support Agent
-→ Course Support: Verifies access in state
-→ Course Support: Provides personalized access instructions
-→ State: learning_progress initialized
-```
-
-**Phase 4: Support Interaction**
-```
-User: "I'm having trouble with lesson 3"
-→ Manager Agent routes to Course Support Agent
-→ Course Support: Checks progress in state
-→ Course Support: Provides targeted help
-→ State: support_tickets updated
-→ State: learning_progress updated
+    D --> G[Intent Classification]
+    E --> H[Feature Adoption Rates]
+    F --> I[User Satisfaction Scores]
+    
+    G --> J[Business Intelligence]
+    H --> J
+    I --> J
+    
+    J --> K[Product Insights]
+    J --> L[User Experience Optimization]
+    J --> M[Feature Prioritization]
+    
+    style B fill:#2196f3
+    style J fill:#4caf50
+    style K fill:#ff9800
+    style L fill:#ff9800
+    style M fill:#ff9800
 ```
 
 ## 🎉 Success Indicators
 
-### ✅ Your Stateful Multi-Agent System is Working When:
+### ✅ Your Callback System is Working When:
 
 ```mermaid
-pie title Stateful Multi-Agent Success Metrics
-    "State Persistence" : 25
-    "Intelligent Routing" : 25
-    "Cross-Agent Coordination" : 25
-    "Personalized Responses" : 25
+pie title Callback System Success Metrics
+    "Real-time Monitoring" : 30
+    "Error Detection" : 25
+    "Performance Tracking" : 25
+    "Analytics Collection" : 20
 ```
 
 | Indicator | Description | What to Look For |
 |-----------|-------------|------------------|
-| 💾 **State Persistence** | Information survives across agent switches | Purchase data available to all agents |
-| 🎯 **Intelligent Routing** | Queries reach most appropriate specialists | Context-aware agent selection |
-| 🔄 **Cross-Agent Coordination** | Agents work together seamlessly | Shared state updates and access |
-| 🎭 **Personalized Responses** | Responses adapt to user history | Different responses based on purchase status |
+| 📊 **Real-time Monitoring** | Live metrics and dashboards | Continuous data flow, updated visualizations |
+| 🚨 **Error Detection** | Immediate error alerts | Rapid notification of issues |
+| ⚡ **Performance Tracking** | Response time and resource monitoring | Consistent metric collection |
+| 📈 **Analytics Collection** | User behavior insights | Rich interaction data capture |
 
-### 🔧 Advanced Testing Checklist
+### 🔧 Monitoring System Checklist
 
-- [ ] 💾 State persists across agent delegations
-- [ ] 🎯 Manager routes queries intelligently
-- [ ] 📚 Course Support checks purchase status
-- [ ] 💼 Sales Agent updates purchase records
-- [ ] 📋 Policy Agent provides relevant policies
-- [ ] 📦 Order Agent accesses transaction history
-- [ ] 🔄 State updates propagate to all agents
-- [ ] 🎭 Responses become increasingly personalized
-- [ ] 📊 Interaction history influences future routing
-- [ ] 🛡️ Access control works correctly
+- [ ] 📊 Dashboard displays real-time metrics
+- [ ] ⚡ Response time monitoring active
+- [ ] 💾 Memory usage tracking working
+- [ ] 🚨 Error alerts functioning
+- [ ] 📈 User analytics collecting data
+- [ ] 🔄 Custom callbacks responding to events
+- [ ] 📋 Logs capturing all interactions
+- [ ] 🎯 Performance thresholds configured
+- [ ] 📧 Notification system operational
+- [ ] 📊 Historical data accumulating
 
-## 🔄 Advanced Stateful Patterns
+## 🔄 Advanced Callback Patterns
 
-### 🏗️ Complex State Management Strategies
+### 🏗️ Complex Event Processing
 
 ```mermaid
 graph TD
-    A[Advanced State Patterns] --> B[Hierarchical State]
-    A --> C[Event-Driven Updates]
-    A --> D[State Validation]
-    A --> E[Conflict Resolution]
+    A[Event Stream] --> B[Event Filter]
+    B --> C[Event Aggregator]
+    C --> D[Pattern Detection]
+    D --> E[Complex Event Processing]
     
-    B --> B1[User Level]
-    B --> B2[Session Level]
-    B --> B3[Interaction Level]
+    E --> F[Trend Analysis]
+    E --> G[Anomaly Detection]
+    E --> H[Predictive Insights]
+    E --> I[Automated Responses]
     
-    C --> C1[Purchase Events]
-    C --> C2[Support Events]
-    C --> C3[Learning Events]
+    F --> J[Performance Trends]
+    G --> K[System Anomalies]
+    H --> L[Predictive Alerts]
+    I --> M[Auto-scaling Triggers]
     
-    D --> D1[Schema Validation]
-    D --> D2[Business Rules]
-    D --> D3[Access Controls]
-    
-    E --> E1[Last Writer Wins]
-    E --> E2[Merge Strategies]
-    E --> E3[Version Control]
-    
-    style A fill:#2196f3
-    style B1 fill:#4caf50
-    style C1 fill:#ff9800
-    style D1 fill:#9c27b0
-    style E1 fill:#f44336
+    style E fill:#2196f3
+    style J fill:#4caf50
+    style K fill:#ff9800
+    style L fill:#9c27b0
+    style M fill:#f44336
 ```
 
-### 📊 State Synchronization Patterns
-
-```mermaid
-sequenceDiagram
-    participant A1 as Sales Agent
-    participant S as Shared State
-    participant A2 as Course Support
-    participant A3 as Order Agent
-    
-    A1->>S: Update: New purchase
-    S->>S: Validate purchase data
-    S->>A2: Notify: Access granted
-    S->>A3: Notify: Order created
-    
-    A2->>S: Update: Course progress
-    S->>A1: Notify: Engagement metrics
-    
-    A3->>S: Update: Refund processed
-    S->>A2: Notify: Access revoked
-    S->>A1: Notify: Revenue adjustment
-```
-
-### 🎯 Personalization Engine
+### 📊 Multi-Dimensional Monitoring
 
 ```mermaid
 mindmap
-  root)Personalization Engine(
-    User Profiling
+  root)Advanced Monitoring Dimensions(
+    Technical Metrics
+      Response times
+      Error rates
+      Resource usage
+      Throughput
+    Business Metrics
+      User satisfaction
+      Conversion rates
+      Feature adoption
+      Revenue impact
+    Operational Metrics
+      System availability
+      Service level adherence
+      Incident response time
+      Recovery metrics
+    User Experience
       Interaction patterns
-      Learning preferences
-      Communication style
-      Purchase behavior
-    Dynamic Adaptation
-      Response tone adjustment
-      Content recommendations
-      Support prioritization
-      Feature suggestions
-    Context Awareness
-      Current session context
-      Historical interactions
-      Purchase status
-      Learning progress
-    Predictive Intelligence
-      Next likely questions
-      Churn risk assessment
-      Upsell opportunities
-      Support needs
+      Journey completion
+      Friction points
+      Engagement levels
 ```
 
-## 🏭 Production Scaling Considerations
+### 🎯 Intelligent Alerting
 
-### 🗄️ Enterprise State Management
+```mermaid
+graph LR
+    A[Raw Events] --> B[Smart Filter]
+    B --> C[Severity Analysis]
+    C --> D[Context Evaluation]
+    D --> E[Alert Decision]
+    E --> F{Alert Type}
+    
+    F -->|Critical| G[Immediate Notification]
+    F -->|Warning| H[Batched Alert]
+    F -->|Info| I[Dashboard Update]
+    
+    G --> J[SMS + Email + Slack]
+    H --> K[Email Summary]
+    I --> L[Metric Dashboard]
+    
+    style E fill:#2196f3
+    style G fill:#f44336
+    style H fill:#ff9800
+    style I fill:#4caf50
+```
+
+## 🏭 Production Monitoring Considerations
+
+### 🗄️ Enterprise Observability Stack
 
 ```mermaid
 graph TD
-    A[Production State Architecture] --> B[Database Clustering]
-    A --> C[Caching Layers]
-    A --> D[State Partitioning]
-    A --> E[Backup Strategies]
+    A[ADK Callbacks] --> B[Event Aggregation Layer]
+    B --> C[Metrics Processing]
+    B --> D[Log Processing]
+    B --> E[Trace Processing]
     
-    B --> B1[Master-Slave Replication]
-    B --> B2[Read Replicas]
-    B --> B3[High Availability]
+    C --> F[Time Series Database]
+    D --> G[Log Storage]
+    E --> H[Distributed Tracing]
     
-    C --> C1[Redis Clusters]
-    C --> C2[Application Cache]
-    C --> C3[CDN Integration]
+    F --> I[Grafana Dashboards]
+    G --> J[ELK Stack]
+    H --> K[Jaeger/Zipkin]
     
-    D --> D1[User-based Sharding]
-    D --> D2[Geographic Distribution]
-    D --> D3[Load Balancing]
+    I --> L[Operations Team]
+    J --> L
+    K --> L
     
-    E --> E1[Real-time Backups]
-    E --> E2[Point-in-time Recovery]
-    E --> E3[Disaster Recovery]
-    
-    style A fill:#2196f3
-    style B1 fill:#4caf50
-    style C1 fill:#ff9800
-    style D1 fill:#9c27b0
-    style E1 fill:#f44336
+    style B fill:#2196f3
+    style F fill:#4caf50
+    style G fill:#ff9800
+    style H fill:#9c27b0
 ```
 
-### 📊 Performance Optimization
+### 📊 Scalable Monitoring Architecture
 
-| Optimization | Implementation | Benefits | Considerations |
-|--------------|----------------|----------|----------------|
-| 🚀 **State Caching** | Redis/Memcached | Faster access | Cache invalidation |
-| 📊 **Lazy Loading** | On-demand state loading | Reduced memory | Initial latency |
-| 🔄 **State Compression** | JSON compression | Reduced storage | CPU overhead |
-| ⚡ **Async Updates** | Background processing | Better responsiveness | Eventual consistency |
+| Component | Purpose | Technology Options | Scaling Considerations |
+|-----------|---------|-------------------|----------------------|
+| 📡 **Event Collection** | Gather callback events | Custom, Kafka, RabbitMQ | High throughput, low latency |
+| 🗄️ **Metrics Storage** | Store time-series data | InfluxDB, Prometheus | Retention policies, compression |
+| 📋 **Log Management** | Centralized logging | Elasticsearch, Splunk | Indexing, search performance |
+| 📊 **Visualization** | Dashboards and charts | Grafana, Kibana | Real-time updates, customization |
+| 🚨 **Alerting** | Notification systems | PagerDuty, Slack | Smart routing, escalation |
 
-### 🔐 Security and Privacy
+### 🔐 Security and Privacy in Monitoring
 
 ```mermaid
 mindmap
-  root)Security Considerations(
+  root)Monitoring Security(
     Data Protection
-      Encryption at rest
-      Encryption in transit
-      Key management
-      Access logging
+      Anonymize user data
+      Encrypt sensitive metrics
+      Secure transmission
+      Access controls
     Privacy Compliance
-      GDPR compliance
-      Data minimization
+      GDPR considerations
+      Data retention limits
       User consent
       Right to deletion
-    Access Controls
+    Monitoring Security
+      Secure dashboard access
+      Authentication required
       Role-based permissions
-      Agent authorization
-      State isolation
-      Audit trails
-    Monitoring
-      Security events
-      Access patterns
-      Anomaly detection
+      Audit monitoring access
+    Alert Security
+      Secure notification channels
+      Encrypted messages
+      Access verification
       Incident response
 ```
 
 ## 🚪 Troubleshooting
 
-### 🔧 Complex System Issues
+### 🔧 Callback System Issues
 
 ```mermaid
 flowchart TD
-    A[System Issue Detected] --> B{State Sync Problem?}
-    B -->|Yes| C[Check State Consistency]
-    B -->|No| D{Agent Coordination Issue?}
-    D -->|Yes| E[Verify Agent Communication]
-    D -->|No| F{Performance Issue?}
-    F -->|Yes| G[Analyze State Size]
-    F -->|No| H{Memory Issue?}
-    H -->|Yes| I[Check State Cleanup]
-    H -->|No| J{Routing Problem?}
-    J -->|Yes| K[Verify Agent Logic]
-    J -->|No| L[Check System Logs]
+    A[Monitoring Issue Detected] --> B{Callbacks Not Firing?}
+    B -->|Yes| C[Check Callback Registration]
+    B -->|No| D{Missing Metrics?}
+    D -->|Yes| E[Verify Event Emission]
+    D -->|No| F{Dashboard Issues?}
+    F -->|Yes| G[Check Data Pipeline]
+    F -->|No| H{Performance Impact?}
+    H -->|Yes| I[Optimize Callback Logic]
+    H -->|No| J{Alert Failures?}
+    J -->|Yes| K[Check Notification Config]
+    J -->|No| L[Review System Logs]
     
     style A fill:#f44336
     style C fill:#ff9800
@@ -839,44 +878,44 @@ flowchart TD
 
 | Issue | Symptoms | Likely Cause | Solution |
 |-------|----------|--------------|---------|
-| 🔄 **State Desync** | Agents see different data | Concurrent updates | Implement state locking |
-| 🎯 **Wrong Routing** | Incorrect agent selection | State-dependent logic issues | Review routing conditions |
-| 💾 **Memory Bloat** | Increasing memory usage | Large state objects | Implement state cleanup |
-| ⚡ **Slow Response** | Performance degradation | Complex state operations | Optimize state access |
-| 🔧 **Agent Conflicts** | Conflicting agent actions | Race conditions | Add coordination protocols |
+| 📊 **No Metrics** | Empty dashboard | Callbacks not registered | Verify callback initialization |
+| 🚨 **Missing Alerts** | No notifications | Alert configuration error | Check notification settings |
+| ⚡ **Slow Performance** | System lag | Heavy callback processing | Optimize callback logic |
+| 📋 **Incomplete Data** | Partial metrics | Event emission issues | Check agent event triggers |
+| 🔄 **Dashboard Errors** | Display problems | Data pipeline failure | Verify data flow |
 
 ### 🛠️ Debug Commands
 
 ```bash
-# Test state access
-python -c "from main import *; test_state_access()"
+# Test callback registration
+python -c "from main import *; test_callback_registration()"
 
-# Verify agent coordination
-python -c "from main import *; test_agent_coordination()"
+# Verify event emission
+python -c "from main import *; test_event_emission()"
 
-# Check state consistency
-python -c "from utils import *; validate_state_schema()"
+# Check metric collection
+python -c "from callbacks import *; validate_metric_collection()"
 
-# Monitor state changes
-python -c "from main import *; enable_state_monitoring()"
+# Test alert system
+python -c "from utils import *; test_alert_system()"
 ```
 
-### 🛑 System Recovery
+### 🛑 Monitoring Recovery
 
 ```mermaid
 graph TD
-    A[System Failure] --> B{State Corruption?}
-    B -->|Yes| C[Restore from Backup]
-    B -->|No| D{Agent Failure?}
-    D -->|Yes| E[Restart Failed Agents]
-    D -->|No| F{Network Issue?}
-    F -->|Yes| G[Check Connectivity]
-    F -->|No| H[Full System Restart]
+    A[Monitoring System Failure] --> B{Data Loss?}
+    B -->|Yes| C[Restore from Backups]
+    B -->|No| D{Dashboard Down?}
+    D -->|Yes| E[Restart Dashboard Service]
+    D -->|No| F{Callback Failure?}
+    F -->|Yes| G[Reinitialize Callbacks]
+    F -->|No| H[Check External Dependencies]
     
-    C --> I[Validate State Integrity]
-    E --> J[Verify Agent Health]
-    G --> K[Restore Connections]
-    H --> L[Complete System Check]
+    C --> I[Verify Data Integrity]
+    E --> J[Confirm Dashboard Access]
+    G --> K[Test Callback Functionality]
+    H --> L[Restore Service Connections]
     
     style C fill:#4caf50
     style I fill:#c8e6c9
@@ -889,45 +928,44 @@ graph TD
 
 ### 🏆 Key Achievements
 
-- [ ] 🔄 Implemented complex stateful multi-agent coordination
-- [ ] 💾 Designed sophisticated shared state management
-- [ ] 🎯 Created intelligent context-aware agent routing
-- [ ] 🏗️ Built enterprise-grade agent communication systems
-- [ ] 📊 Mastered cross-agent state synchronization
-- [ ] 🎭 Developed personalized, adaptive agent behaviors
-- [ ] 🔧 Applied advanced troubleshooting for complex systems
-- [ ] 🏭 Understood production scaling and optimization strategies
+- [ ] 📊 Implemented comprehensive real-time monitoring
+- [ ] 🚨 Built intelligent error detection and alerting
+- [ ] 📈 Created sophisticated analytics collection systems
+- [ ] 🔧 Developed custom callback patterns for specific needs
+- [ ] 🏗️ Designed enterprise-ready observability architectures
+- [ ] 📊 Mastered dashboard creation and metric visualization
+- [ ] 🔄 Applied event-driven programming for system monitoring
+- [ ] 🏭 Understood production monitoring and scaling considerations
 
 ### 🚀 Next Steps
 
-Ready for the final advanced patterns?
+Ready for specialized agent patterns?
 
 | Next Example | Focus | Complexity | Key Concepts |
 |--------------|-------|------------|--------------|
-| 📊 **Callbacks** | Event monitoring | ⭐⭐⭐ | Real-time system monitoring |
 | ⚡ **Sequential Agent** | Pipeline workflows | ⭐⭐⭐ | Step-by-step processing |
 | 🔄 **Parallel Agent** | Concurrent execution | ⭐⭐⭐⭐ | Parallel coordination |
 | 🔁 **Loop Agent** | Iterative refinement | ⭐⭐⭐⭐⭐ | Self-improving systems |
 
-### 🎯 Mastery Concepts Achieved
+### 🎯 Monitoring Mastery Concepts
 
 ```mermaid
 graph TD
-    A[Stateful Multi-Agent Mastery] --> B[Advanced Coordination]
-    A --> C[Enterprise Architecture]
+    A[Callback Monitoring Mastery] --> B[Real-time Observability]
+    A --> C[Event-Driven Architecture]
     A --> D[Production Readiness]
     
-    B --> E[Complex State Management]
-    B --> F[Intelligent Routing]
-    B --> G[Cross-Agent Communication]
+    B --> E[Performance Monitoring]
+    B --> F[Error Detection]
+    B --> G[Analytics Collection]
     
-    C --> H[Scalable Design]
-    C --> I[Security Implementation]
-    C --> J[Performance Optimization]
+    C --> H[Event Processing]
+    C --> I[Smart Alerting]
+    C --> J[Pattern Recognition]
     
-    D --> K[Monitoring & Observability]
-    D --> L[Error Handling]
-    D --> M[Recovery Strategies]
+    D --> K[Scalable Architecture]
+    D --> L[Security Implementation]
+    D --> M[Enterprise Integration]
     
     style A fill:#4caf50
     style B fill:#2196f3
@@ -941,46 +979,46 @@ graph TD
 
 | Resource | Focus | Link |
 |----------|-------|------|
-| 📖 **ADK Sessions** | Advanced session management | [ADK Sessions Documentation](https://google.github.io/adk-docs/sessions/session/) |
-| 🤖 **Multi-Agent Systems** | Agent orchestration patterns | [Multi-Agent Documentation](https://google.github.io/adk-docs/agents/multi-agent-systems/) |
-| 📊 **State Management** | Complex state strategies | [State Management Guide](https://google.github.io/adk-docs/sessions/state/) |
-| 🏗️ **Architecture Patterns** | Enterprise design patterns | [Architecture Documentation](https://google.github.io/adk-docs/architecture/) |
+| 📖 **ADK Callbacks** | Callback system guide | [ADK Callbacks Documentation](https://google.github.io/adk-docs/callbacks/) |
+| 📊 **Monitoring Patterns** | Observability best practices | [Monitoring Guide](https://google.github.io/adk-docs/monitoring/) |
+| 🚨 **Error Handling** | Error management strategies | [Error Handling Documentation](https://google.github.io/adk-docs/error-handling/) |
+| 📈 **Analytics Integration** | Business intelligence setup | [Analytics Guide](https://google.github.io/adk-docs/analytics/) |
 
-### 🎯 Advanced Design Patterns
+### 🎯 Monitoring Best Practices
 
 ```mermaid
 mindmap
-  root)Stateful Multi-Agent Patterns(
-    Coordination Patterns
-      State-based routing
-      Event-driven coordination
-      Hierarchical delegation
-      Peer-to-peer communication
-    State Management
-      Optimistic concurrency
-      Pessimistic locking
-      Event sourcing
-      CQRS implementation
-    Scalability Patterns
-      State partitioning
-      Agent clustering
-      Load balancing
-      Caching strategies
-    Reliability Patterns
-      Circuit breakers
-      Retry mechanisms
-      Graceful degradation
-      Backup strategies
+  root)Monitoring Best Practices(
+    Design Principles
+      Minimal performance impact
+      Actionable metrics only
+      Clear alert criteria
+      Comprehensive coverage
+    Implementation
+      Async event processing
+      Batched metric collection
+      Smart sampling
+      Efficient storage
+    Operations
+      Clear escalation paths
+      Runbook documentation
+      Regular review cycles
+      Continuous improvement
+    Security
+      Data anonymization
+      Secure channels
+      Access controls
+      Compliance adherence
 ```
 
-### 📊 System Performance Metrics
+### 📊 Monitoring Metrics Framework
 
-| Metric | Target | Monitoring | Optimization |
-|--------|--------|------------|-------------|
-| 🎯 **Routing Accuracy** | >98% | Agent selection logs | Improve decision logic |
-| ⚡ **Response Time** | <2 seconds | End-to-end latency | State access optimization |
-| 💾 **State Consistency** | 100% | State validation checks | Synchronization protocols |
-| 🔄 **Agent Coordination** | >95% success | Inter-agent communication | Error handling improvement |
+| Metric Category | Examples | Collection Method | Analysis Purpose |
+|----------------|----------|-------------------|------------------|
+| 📊 **Performance** | Response time, throughput | Real-time callbacks | System optimization |
+| 🚨 **Reliability** | Error rates, uptime | Error callbacks | Stability improvement |
+| 👥 **User Experience** | Satisfaction, engagement | Analytics callbacks | Product enhancement |
+| 💰 **Business** | Conversion, retention | Custom callbacks | Revenue optimization |
 
 ---
 
@@ -988,12 +1026,12 @@ mindmap
 
 ### 🎉 Congratulations! 
 
-You've mastered the most complex agent coordination patterns! 
+You've mastered real-time monitoring and event-driven observability! 
 
-[![Next: Callbacks](https://img.shields.io/badge/Next-Callbacks-lightblue?style=for-the-badge&logo=arrow-right)](../9-callbacks/)
-[![Previous: Multi-Agent](https://img.shields.io/badge/Previous-Multi--Agent-darkblue?style=for-the-badge&logo=arrow-left)](../7-multi-agent/)
+[![Next: Sequential Agent](https://img.shields.io/badge/Next-Sequential%20Agent-lightgreen?style=for-the-badge&logo=arrow-right)](../10-sequential-agent/)
+[![Previous: Stateful Multi-Agent](https://img.shields.io/badge/Previous-Stateful%20Multi--Agent-darkgreen?style=for-the-badge&logo=arrow-left)](../8-stateful-multi-agent/)
 [![Back to Main](https://img.shields.io/badge/Back-Main%20Course-green?style=for-the-badge&logo=home)](../)
 
-*Ready to monitor your systems in real-time? Let's explore callbacks! 📊*
+*Ready to build step-by-step processing workflows? Let's explore sequential agents! ⚡*
 
 </div>
