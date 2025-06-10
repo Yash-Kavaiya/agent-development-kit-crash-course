@@ -1,128 +1,134 @@
-# LiteLLM Agent Example
+# 🔄 LiteLLM Agent Example
 
-## What is LiteLLM?
+[![ADK](https://img.shields.io/badge/ADK-LiteLLM%20Agent-purple.svg)](https://google.github.io/adk-docs/)
+[![Difficulty](https://img.shields.io/badge/Difficulty-Intermediate-yellow.svg)](.)
+[![Python](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![LiteLLM](https://img.shields.io/badge/LiteLLM-Multi--Provider-green.svg)](https://litellm.ai/)
 
-LiteLLM is a Python library that provides a unified interface for interacting with multiple Large Language Model (LLM) providers through a single, consistent API. It serves as an adapter that allows you to:
+> 🎯 **Master Multi-Provider LLM Integration** - Learn to seamlessly switch between different LLM providers using LiteLLM abstraction
 
-- Use the same code to access 100+ different LLMs from providers like OpenAI, Anthropic, Google, AWS Bedrock, and more
-- Standardize inputs and outputs across different LLM providers
-- Track costs, manage API keys, and handle errors consistently
-- Implement fallbacks and load balancing across different models
+## 🌐 What is a LiteLLM Agent?
 
-In essence, LiteLLM acts as a unified wrapper that makes it easy to switch between different LLM providers without changing your application code.
+A **LiteLLM Agent** is an ADK agent that uses the LiteLLM library to abstract away LLM provider details, enabling you to easily switch between different models from various providers (OpenAI, Anthropic, Google, Azure, etc.) with minimal code changes.
 
-## Why Use LiteLLM with ADK?
+### 🔄 Provider Abstraction Benefits
 
-The Agent Development Kit (ADK) is designed to be model-agnostic, meaning it can work with various LLM providers. LiteLLM enhances this capability by:
-
-1. **Provider Flexibility**: Easily switch between LLM providers (OpenAI, Anthropic, etc.) without changing your agent code
-2. **Cost Optimization**: Choose the most cost-effective model for your specific use case
-3. **Model Exploration**: Experiment with different models to find the best performance for your task
-4. **Future-Proofing**: As new models are released, you can quickly adopt them without major code changes
-
-This example demonstrates how to use LiteLLM with ADK to create an agent powered by models through OpenRouter rather than Google's Gemini models.
-
-## Limitations When Using Non-Google Models
-
-When using LiteLLM to integrate non-Google models with ADK, there are some important limitations to be aware of:
-
-1. **No Access to Google Built-in Tools**: Non-Google models (like OpenAI, Anthropic, etc.) cannot use ADK's built-in Google tools such as:
-   - Google Search
-   - Code Execution
-   - Vertex AI Search
-
-2. **Custom Function Tools Only**: When using non-Google models, you can only use custom function tools (like the `get_dad_joke()` function in this example).
-
-
-These limitations exist because built-in tools are specifically designed to work with Google's models and infrastructure. However, you can still create powerful agents using custom function tools and the wide variety of models available through LiteLLM.
-
-## Getting Started
-
-This example uses the same virtual environment created in the root directory. Make sure you have:
-
-1. Activated the virtual environment from the root directory:
-```bash
-# macOS/Linux:
-source ../.venv/bin/activate
-# Windows CMD:
-..\.venv\Scripts\activate.bat
-# Windows PowerShell:
-..\.venv\Scripts\Activate.ps1
+```mermaid
+graph TB
+    subgraph "Traditional Approach"
+        A1[Your Agent] --> B1[OpenAI API]
+        A1 --> B2[Google API]
+        A1 --> B3[Anthropic API]
+        A1 --> B4[Azure API]
+        
+        B1 --> C1[Different Interfaces]
+        B2 --> C2[Different Parameters]
+        B3 --> C3[Different Error Handling]
+        B4 --> C4[Different Authentication]
+    end
+    
+    subgraph "LiteLLM Approach"
+        A2[Your Agent] --> L[LiteLLM Layer]
+        L --> B5[OpenAI]
+        L --> B6[Google]
+        L --> B7[Anthropic]
+        L --> B8[Azure]
+        
+        L --> C5[Unified Interface]
+        L --> C6[Consistent Parameters]
+        L --> C7[Standardized Error Handling]
+        L --> C8[Universal Authentication]
+    end
+    
+    style L fill:#9c27b0
+    style C5 fill:#c8e6c9
+    style C6 fill:#c8e6c9
+    style C7 fill:#c8e6c9
+    style C8 fill:#c8e6c9
 ```
 
-2. Set up your OpenRouter API key:
-   - Create an account at [OpenRouter](https://openrouter.ai/) if you don't have one
-   - Generate an API key at https://openrouter.ai/keys
-   - Rename `.env.example` to `.env` in the openrouter_dad_joke_agent folder
-   - Add your OpenRouter API key to the `OPENROUTER_API_KEY` variable in the `.env` file
+### 📊 Provider Comparison
 
-## Understanding the Code
+| Provider | Models Available | Strengths | Use Cases |
+|----------|------------------|-----------|-----------||
+| 🤖 **OpenAI** | GPT-4, GPT-3.5 | Strong reasoning, coding | General purpose, creative tasks |
+| 🧠 **Anthropic** | Claude 3, Claude 2 | Safety, analysis | Research, detailed analysis |
+| 🔍 **Google** | Gemini, PaLM | Multimodal, fast | Search integration, real-time |
+| ☁️ **Azure OpenAI** | GPT-4, GPT-3.5 | Enterprise features | Corporate deployments |
+| 🌟 **Others** | Cohere, AI21, etc. | Specialized capabilities | Specific domains |
 
-This example demonstrates:
+## 🏗️ LiteLLM Architecture
 
-1. How to use the `LiteLlm` model adapter with ADK
-2. How to connect to models through OpenRouter (specifically Claude 3.5 Sonnet)
-3. How to create a simple agent with a custom tool
+### 🔧 How LiteLLM Works
 
-The agent is configured to tell dad jokes using a custom function tool `get_dad_joke()` and powered by Anthropic's Claude 3.5 Sonnet model through OpenRouter instead of Google's Gemini.
-
-## Running the Example
-
-To run the LiteLLM agent example:
-
-1. Navigate to the 3-litellm-agent directory containing your agent folder.
-
-2. Start the interactive web UI:
-```bash
-adk web
+```mermaid
+sequenceDiagram
+    participant A as ADK Agent
+    participant L as LiteLLM
+    participant P1 as OpenAI
+    participant P2 as Google
+    participant P3 as Anthropic
+    
+    A->>L: Standard Request
+    L->>L: Route Based on Model
+    
+    alt Model: gpt-4
+        L->>P1: OpenAI Format
+        P1->>L: OpenAI Response
+    else Model: gemini-pro
+        L->>P2: Google Format
+        P2->>L: Google Response
+    else Model: claude-3
+        L->>P3: Anthropic Format
+        P3->>L: Anthropic Response
+    end
+    
+    L->>L: Standardize Response
+    L->>A: Unified Response Format
 ```
 
-3. Access the web UI by opening the URL shown in your terminal (typically http://localhost:8000)
+### 🎛️ Configuration Flexibility
 
-4. Select the "openrouter_dad_joke_agent" from the dropdown menu in the top-left corner of the UI
-
-5. Start chatting with your agent in the textbox at the bottom of the screen
-
-### Example Prompts to Try
-
-- "Tell me a dad joke"
-
-You can exit the conversation or stop the server by pressing `Ctrl+C` in your terminal.
-
-## Modifying the Example
-
-You can easily modify this example to use different models from different providers through OpenRouter by changing the `LiteLlm` configuration. For example:
-
-```python
-# To use Claude 3.5 Sonnet from Anthropic through OpenRouter
-model = LiteLlm(
-    model="openrouter/anthropic/claude-3-5-sonnet",
-    api_key=os.getenv("OPENROUTER_API_KEY"),
-)
-
-# To use GPT-4o from OpenAI through OpenRouter
-model = LiteLlm(
-    model="openrouter/openai/gpt-4o",
-    api_key=os.getenv("OPENROUTER_API_KEY"),
-)
-
-# To use Llama 3 70B from Meta through OpenRouter
-model = LiteLlm(
-    model="openrouter/meta-llama/meta-llama-3-70b-instruct",
-    api_key=os.getenv("OPENROUTER_API_KEY"),
-)
-
-# To use Mistral Large through OpenRouter
-model = LiteLlm(
-    model="openrouter/mistral/mistral-large-latest",
-    api_key=os.getenv("OPENROUTER_API_KEY"),
-)
+```mermaid
+graph TD
+    A[LiteLLM Configuration] --> B[Model Selection]
+    A --> C[Provider Settings]
+    A --> D[Fallback Options]
+    A --> E[Cost Management]
+    
+    B --> B1[Primary Model]
+    B --> B2[Backup Models]
+    
+    C --> C1[API Keys]
+    C --> C2[Base URLs]
+    C --> C3[Custom Headers]
+    
+    D --> D1[Provider Fallback]
+    D --> D2[Model Fallback]
+    D --> D3[Error Handling]
+    
+    E --> E1[Budget Limits]
+    E --> E2[Rate Limiting]
+    E --> E3[Cost Tracking]
+    
+    style A fill:#9c27b0
+    style B1 fill:#4caf50
+    style D1 fill:#ff9800
+    style E1 fill:#f44336
 ```
 
-## Additional Resources
+---
 
-- [Google ADK LiteLLM Integration Documentation](https://google.github.io/adk-docs/tutorials/agent-team/#step-2-going-multi-model-with-litellm-optional)
-- [LiteLLM Documentation](https://docs.litellm.ai/docs/)
-- [LiteLLM Supported Providers](https://docs.litellm.ai/docs/providers)
-- [OpenRouter Documentation](https://openrouter.ai/docs)
-- [Anthropic Claude Models Overview](https://docs.anthropic.com/en/docs/about-claude/models/all-models)
+<div align="center">
+
+### 🎉 Congratulations! 
+
+You've mastered multi-provider LLM integration with LiteLLM! 
+
+[![Next: Structured Outputs](https://img.shields.io/badge/Next-Structured%20Outputs-teal?style=for-the-badge&logo=arrow-right)](../4-structured-outputs/)
+[![Previous: Tool Agent](https://img.shields.io/badge/Previous-Tool%20Agent-orange?style=for-the-badge&logo=arrow-left)](../2-tool-agent/)
+[![Back to Main](https://img.shields.io/badge/Back-Main%20Course-green?style=for-the-badge&logo=home)](../)
+
+*Ready to structure your agent responses? Let's explore Pydantic schemas! 📊*
+
+</div>
