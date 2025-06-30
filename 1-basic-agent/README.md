@@ -43,30 +43,8 @@ mindmap
 
 ### 🆚 Deterministic vs. Non-Deterministic Agents
 
-```mermaid
-graph TD
-    subgraph "Traditional Workflow Agent"
-        A1[Input] --> B1[Step 1]
-        B1 --> B2[Step 2]
-        B2 --> B3[Step 3]
-        B3 --> C1[Output]
-    end
-    
-    subgraph "LLM Agent"
-        A2[Input] --> B4[LLM Processing]
-        B4 --> C2{Decision Point}
-        C2 -->|Option A| D1[Tool Use]
-        C2 -->|Option B| D2[Direct Response]
-        C2 -->|Option C| D3[Agent Transfer]
-        D1 --> E[Dynamic Output]
-        D2 --> E
-        D3 --> E
-    end
-    
-    style A2 fill:#e1f5fe
-    style B4 fill:#f3e5f5
-    style E fill:#e8f5e8
-```
+![image](https://github.com/user-attachments/assets/da21d2cc-23a1-4207-9898-4549c8941daa)
+
 
 > 💡 **Key Insight**: Unlike deterministic workflow agents that follow predefined paths, an `LlmAgent`'s behavior is **non-deterministic**. It uses the LLM to interpret instructions and context, deciding dynamically how to proceed!
 
