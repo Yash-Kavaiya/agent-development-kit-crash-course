@@ -54,23 +54,8 @@ For ADK to discover and run your agents properly (especially with `adk web`), yo
 
 ### 🏗️ Project Architecture
 
-```mermaid
-graph TD
-    A[parent_folder/] --> B[agent_folder/]
-    B --> C[__init__.py]
-    B --> D[agent.py]
-    B --> E[.env]
-    
-    C --> C1["📄 Must import agent.py"]
-    D --> D1["🎯 Must define root_agent"]
-    E --> E1["🔑 Environment variables"]
-    
-    style A fill:#e3f2fd
-    style B fill:#f3e5f5
-    style C fill:#e8f5e8
-    style D fill:#fff3e0
-    style E fill:#fce4ec
-```
+![image](https://github.com/user-attachments/assets/91c7497c-ded5-4885-9dc4-8498cdeaf5ff)
+
 
 ```
 parent_folder/
@@ -107,18 +92,8 @@ adk web  # This won't work!
 
 ### 1️⃣ Identity Configuration
 
-```mermaid
-classDiagram
-    class AgentIdentity {
-        +string name
-        +string description
-        +getIdentity()
-        +validateName()
-    }
-    
-    AgentIdentity : name* "Unique identifier"
-    AgentIdentity : description "Capability summary"
-```
+![image](https://github.com/user-attachments/assets/b2a0b3d8-09dc-4d84-b393-459370c712ff)
+
 
 | Property | Status | Purpose | Example |
 |----------|--------|---------|---------|
